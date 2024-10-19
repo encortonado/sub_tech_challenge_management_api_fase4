@@ -1,5 +1,6 @@
 package br.com.fiap.tech.sub_tech_challenge_management_api_fase4.entrypoint.persistance;
 
+
 import br.com.fiap.tech.sub_tech_challenge_management_api_fase4.adapter.entrypoint.persistance.VehicleRepository;
 import br.com.fiap.tech.sub_tech_challenge_management_api_fase4.application.vehicle.entities.VehicleEntity;
 import br.com.fiap.tech.sub_tech_challenge_management_api_fase4.utils.TestUtils;

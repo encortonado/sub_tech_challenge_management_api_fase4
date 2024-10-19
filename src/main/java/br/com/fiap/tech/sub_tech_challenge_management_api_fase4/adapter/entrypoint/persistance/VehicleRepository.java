@@ -2,7 +2,6 @@ package br.com.fiap.tech.sub_tech_challenge_management_api_fase4.adapter.entrypo
 
 import br.com.fiap.tech.sub_tech_challenge_management_api_fase4.application.vehicle.entities.VehicleEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

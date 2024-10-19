@@ -3,6 +3,7 @@ package br.com.fiap.tech.sub_tech_challenge_management_api_fase4.entrypoint.api.
 import br.com.fiap.tech.sub_tech_challenge_management_api_fase4.adapter.entrypoint.api.controller.VehicleController;
 import br.com.fiap.tech.sub_tech_challenge_management_api_fase4.application.vehicle.entities.VehicleEntity;
 import br.com.fiap.tech.sub_tech_challenge_management_api_fase4.application.vehicle.services.VehicleService;
+import br.com.fiap.tech.sub_tech_challenge_management_api_fase4.infrastructure.exceptions.CustomErrorTypeException;
 import br.com.fiap.tech.sub_tech_challenge_management_api_fase4.infrastructure.handler.GlobalExceptionHandler;
 import br.com.fiap.tech.sub_tech_challenge_management_api_fase4.utils.TestUtils;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -24,6 +25,7 @@ import java.util.List;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
@@ -70,6 +72,41 @@ class VehicleControllerTest {
 
             verify(vehicleService, times(1)).findById(vehicleEntity.getId());
 
+        }
+
+        @Test
+        void shouldReturnNotFoundWhenVehicleNotFound() throws Exception {
+            // Arrange: Configura o comportamento para lançar a exceção
+            Long nonExistentId = 999L;
+            when(vehicleService.findById(nonExistentId))
+                    .thenThrow(new CustomErrorTypeException("Veiculo nao encontrado."));
+
+            // Act & Assert: Realiza a chamada e verifica a resposta
+            mockMvc.perform(get("/api/vehicle/{id}", nonExistentId)
+                            .contentType(MediaType.APPLICATION_JSON))
+                    .andExpect(status().isNotFound()) // Verifica se o status é 404
+                    .andExpect(jsonPath("$.errorType").value(404)) // Verifica o corpo da resposta
+                    .andExpect(jsonPath("$.message").value("Veiculo nao encontrado."));
+
+            // Verifica se o serviço foi chamado uma vez
+            verify(vehicleService, times(1)).findById(nonExistentId);
+        }
+
+        @Test
+        void shouldReturnNotFoundWhenVehicleInternalError() throws Exception {
+            // Arrange: Configura o comportamento para lançar a exceção
+            Long nonExistentId = 999L;
+            when(vehicleService.findById(nonExistentId))
+                    .thenThrow(new CustomErrorTypeException("null"));
+
+            // Act & Assert: Realiza a chamada e verifica a resposta
+            mockMvc.perform(get("/api/vehicle/{id}", nonExistentId)
+                            .contentType(MediaType.APPLICATION_JSON))
+                    .andExpect(status().isInternalServerError()) // Verifica se o status é 404
+                    .andExpect(jsonPath("$.errorType").value(500)); // Verifica o corpo da resposta
+
+            // Verifica se o serviço foi chamado uma vez
+            verify(vehicleService, times(1)).findById(nonExistentId);
         }
 
         @Test
