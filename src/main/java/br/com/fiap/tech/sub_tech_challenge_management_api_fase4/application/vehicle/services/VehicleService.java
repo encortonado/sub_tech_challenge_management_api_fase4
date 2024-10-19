@@ -38,7 +38,7 @@ public class VehicleService implements IVehicleService {
     @Override
     public VehicleEntity findById(Long id) {
         return vehicleRepository.findById(id)
-                .orElseThrow(() -> new CustomErrorTypeException("Veículo nao encontrado"));
+                .orElseThrow(() -> new CustomErrorTypeException("Veiculo nao encontrado"));
     }
 
 
