@@ -2,10 +2,10 @@ spring:
   application:
     name: sub_tech_challenge_management_api_fase4
   datasource:
-    url: jdbc:postgresql://challenge.ctmuyuogk8tb.us-east-2.rds.amazonaws.com/challenge
+    url: jdbc:postgresql://posfiap.cxk048e4cyv1.us-east-1.rds.amazonaws.com/posfiap
     driver-class-name: org.postgresql.Driver
     username: postgres
-    password: postgres2
+    password: postgres
   jpa:
     properties:
       hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
