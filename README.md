@@ -114,7 +114,7 @@ A aplicação expõe os seguintes endpoints para cadastro e venda de veículos:
 
 ## 📚 Referências e Recursos Úteis
 
-- [Collection Postman](./Tech Challenge Fase 4.postman_collection.json)
+- [Collection Postman](./Tech%20Challenge%20Fase%204.postman_collection.json)
 - [Documentação oficial do Spring](https://docs.spring.io)
 - [Jakarta Bean Validations](https://beanvalidation.org/)
 - [Cucumber](https://cucumber.io)
